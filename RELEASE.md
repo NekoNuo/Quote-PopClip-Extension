@@ -92,11 +92,26 @@ QuoteComma-v1.0.0.popclipextz  # 打包后的扩展文件
 
 ## 📦 手动打包（备用方案）
 
-如需手动打包：
+### 正确的打包方法：
 
 ```bash
+# 包含整个 .popclipext 文件夹
+zip -r QuoteComma-manual.popclipextz QuoteComma.popclipext/
+```
+
+### 测试打包格式：
+
+```bash
+# 运行测试脚本
+chmod +x test-package.sh
+./test-package.sh
+```
+
+### ❌ 错误的打包方法：
+```bash
+# 这样会导致 "Failed to unzip extension" 错误
 cd QuoteComma.popclipext
-zip -r ../QuoteComma-manual.popclipextz .
+zip -r ../QuoteComma-wrong.popclipextz .
 ```
 
 ## 🎯 最佳实践
