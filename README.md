@@ -1,6 +1,6 @@
 # PopClip Quote Extension
 
-[![Release](https://img.shields.io/github/v/release/NekoNuo/quote-comma?style=flat-square)](https://github.com/NekoNuo/quote-comma/releases)
+[![Release](https://img.shields.io/github/v/release/NekoNuo/Quote-PopClip-Extension?style=flat-square)](https://github.com/NekoNuo/Quote-PopClip-Extension/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 [![PopClip](https://img.shields.io/badge/PopClip-2021.5+-orange.svg?style=flat-square)](https://pilotmoon.com/popclip/)
 
@@ -21,7 +21,7 @@
 
 ### 安装
 
-1. 从 [Releases](https://github.com/NekoNuo/quote-comma/releases) 下载最新的 `.popclipextz` 文件
+1. 从 [Releases](https://github.com/NekoNuo/Quote-PopClip-Extension/releases) 下载最新的 `.popclipextz` 文件
 2. 双击文件，PopClip 会自动安装扩展
 3. 在 PopClip 工具栏中会出现引号气泡图标
 
@@ -102,7 +102,7 @@ grape
 ### 项目结构
 
 ```
-quote-comma/
+Quote-PopClip-Extension/
 ├── QuoteComma.popclipext/     # 扩展包
 │   ├── Config.js              # 主配置文件
 │   ├── README.md              # 扩展说明
@@ -119,8 +119,8 @@ quote-comma/
 
 1. **克隆仓库**
    ```bash
-   git clone https://github.com/NekoNuo/quote-comma.git
-   cd quote-comma
+   git clone https://github.com/NekoNuo/Quote-PopClip-Extension.git
+   cd Quote-PopClip-Extension
    ```
 
 2. **启用开发模式**
@@ -190,8 +190,8 @@ git push origin v1.0.0
 
 如果您遇到问题或有功能建议：
 
-- 📝 [提交 Issue](https://github.com/NekoNuo/quote-comma/issues)
-- 💬 [讨论区](https://github.com/NekoNuo/quote-comma/discussions)
+- 📝 [提交 Issue](https://github.com/NekoNuo/Quote-PopClip-Extension/issues)
+- 💬 [讨论区](https://github.com/NekoNuo/Quote-PopClip-Extension/discussions)
 
 ---
 
