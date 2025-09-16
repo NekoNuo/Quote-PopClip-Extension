@@ -26,32 +26,55 @@
 module.exports = {
   // Extension metadata
   icon: "quote-comma.png",
-  
+
+  // Extension options
+  options: [
+    {
+      identifier: "splitMode",
+      type: "multiple",
+      label: "分割方式",
+      description: "选择文本的分割方式",
+      defaultValue: "newline",
+      values: ["newline", "space"],
+      valueLabels: ["换行符分割", "空格分割"]
+    }
+  ],
+
   // Single action for the extension
   action: {
     // Remove title to show icon only
-    code: (input) => {
+    code: (input, options) => {
       // Get the selected text
       const text = input.text;
 
-      // Split text into lines and filter out empty lines
-      const lines = text.split('\n').filter(line => line.trim() !== '');
+      // Get split mode from options
+      const splitMode = options.splitMode || "newline";
 
-      // Process each line: wrap with quotes and add comma (except last line)
-      const processedLines = lines.map((line, index) => {
-        // Wrap line with double quotes
-        const quotedLine = `"${line}"`;
+      // Split text based on selected mode
+      let items;
+      if (splitMode === "space") {
+        // Split by spaces and filter out empty items
+        items = text.split(/\s+/).filter(item => item.trim() !== '');
+      } else {
+        // Default: split by newlines and filter out empty lines
+        items = text.split('\n').filter(line => line.trim() !== '');
+      }
 
-        // Add comma to all lines except the last one
-        if (index < lines.length - 1) {
-          return quotedLine + ',';
+      // Process each item: wrap with quotes and add comma (except last item)
+      const processedItems = items.map((item, index) => {
+        // Wrap item with double quotes
+        const quotedItem = `"${item}"`;
+
+        // Add comma to all items except the last one
+        if (index < items.length - 1) {
+          return quotedItem + ',';
         } else {
-          return quotedLine;
+          return quotedItem;
         }
       });
 
-      // Join lines back together
-      const result = processedLines.join('\n');
+      // Join items back together
+      const result = processedItems.join('\n');
 
       // Copy to clipboard
       popclip.copyText(result);
