@@ -10,26 +10,7 @@
 
 ## 🛠️ 安装步骤
 
-### 1. 准备图标文件
-
-由于无法直接创建 PNG 文件，您需要：
-
-1. 打开 `QuoteComma.popclipext/icon-source.svg` 文件
-2. 使用以下任一方法转换为 PNG：
-   - **方法A**: 在 macOS 预览应用中打开 SVG，导出为 PNG (64x64 像素)
-   - **方法B**: 使用在线转换工具如 [CloudConvert](https://cloudconvert.com/svg-to-png)
-   - **方法C**: 使用命令行工具：
-     ```bash
-     # 如果安装了 ImageMagick
-     convert icon-source.svg -resize 64x64 quote-comma.png
-     
-     # 如果安装了 rsvg-convert
-     rsvg-convert -w 64 -h 64 icon-source.svg > quote-comma.png
-     ```
-3. 将生成的 PNG 文件重命名为 `quote-comma.png`
-4. 将其放入 `QuoteComma.popclipext/` 目录中
-
-### 2. 启用 PopClip 开发模式
+### 1. 启用 PopClip 开发模式
 
 在终端中运行以下命令：
 
@@ -41,7 +22,7 @@ defaults write com.pilotmoon.popclip LoadUnsignedExtensions -bool YES
 defaults write com.pilotmoon.popclip EnableExtensionDebug -bool YES
 ```
 
-### 3. 安装扩展
+### 2. 安装扩展
 
 1. 退出 PopClip（如果正在运行）
 2. 双击 `QuoteComma.popclipext` 文件夹
@@ -51,7 +32,7 @@ defaults write com.pilotmoon.popclip EnableExtensionDebug -bool YES
    ~/Library/Application Support/PopClip/Extensions/
    ```
 
-### 4. 重启 PopClip
+### 3. 重启 PopClip
 
 ```bash
 # 退出 PopClip
@@ -111,8 +92,7 @@ orange
 QuoteComma.popclipext/
 ├── Config.js              # 主配置和逻辑文件
 ├── README.md              # 扩展说明文档
-├── icon-source.svg        # 图标源文件
-└── quote-comma.png        # 图标文件（需要手动创建）
+└── icon-source.svg        # 图标源文件（仅供参考）
 ```
 
 ## ⚙️ 技术细节
