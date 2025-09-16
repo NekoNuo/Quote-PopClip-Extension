@@ -29,19 +29,19 @@ module.exports = {
   
   // Single action for the extension
   action: {
-    title: "Quote & Comma",
+    // Remove title to show icon only
     code: (input) => {
       // Get the selected text
       const text = input.text;
-      
-      // Split text into lines, preserving empty lines
-      const lines = text.split('\n');
-      
+
+      // Split text into lines and filter out empty lines
+      const lines = text.split('\n').filter(line => line.trim() !== '');
+
       // Process each line: wrap with quotes and add comma (except last line)
       const processedLines = lines.map((line, index) => {
         // Wrap line with double quotes
         const quotedLine = `"${line}"`;
-        
+
         // Add comma to all lines except the last one
         if (index < lines.length - 1) {
           return quotedLine + ',';
@@ -49,16 +49,15 @@ module.exports = {
           return quotedLine;
         }
       });
-      
+
       // Join lines back together
       const result = processedLines.join('\n');
-      
+
       // Copy to clipboard
       popclip.copyText(result);
-      
-      // Show success message
-      popclip.showText("Text formatted with quotes and commas!");
-      
+
+      // No success message - silent operation
+
       return result;
     }
   }
