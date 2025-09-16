@@ -1,0 +1,90 @@
+name: Release PopClip Extension
+
+on:
+  push:
+    tags:
+      - 'v*'  # 触发条件：推送以 v 开头的标签，如 v1.0.0
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Get tag name
+      id: tag
+      run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      
+    - name: Create extension package
+      run: |
+        # 进入扩展目录
+        cd QuoteComma.popclipext
+        
+        # 创建 zip 文件（不包含父目录）
+        zip -r ../QuoteComma-${{ steps.tag.outputs.tag }}.popclipextz .
+        
+        # 返回根目录
+        cd ..
+        
+        # 验证文件创建成功
+        ls -la *.popclipextz
+        
+    - name: Generate release notes
+      id: release_notes
+      run: |
+        cat > release_notes.md << 'EOF'
+        ## PopClip Quote Extension ${{ steps.tag.outputs.tag }}
+        
+        ### 功能特性
+        - 🔄 **灵活分割**: 支持换行符、空格、混合分割模式
+        - 🎯 **智能引号**: 自动处理已有引号，支持多层嵌套
+        - 📝 **输出格式**: 多行或单行格式可选
+        - 💬 **简洁界面**: SF Symbols 引号气泡图标
+        - 🔇 **静默操作**: 无弹窗提示，自动复制到剪贴板
+        
+        ### 安装方法
+        1. 下载 `QuoteComma-${{ steps.tag.outputs.tag }}.popclipextz` 文件
+        2. 双击文件安装到 PopClip
+        3. 在 PopClip 扩展选项中配置分割方式和输出格式
+        
+        ### 系统要求
+        - macOS with PopClip installed
+        - PopClip version 2021.5 or later
+        
+        ### 使用示例
+        **输入文本:**
+        ```
+        ip：192.168.1.100
+        子网：255.255.255.0
+        网关：192.168.1.1
+        ```
+        
+        **输出结果:**
+        ```
+        "ip：192.168.1.100",
+        "子网：255.255.255.0",
+        "网关：192.168.1.1"
+        ```
+        EOF
+        
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.tag.outputs.tag }}
+        name: PopClip Quote Extension ${{ steps.tag.outputs.tag }}
+        body_path: release_notes.md
+        files: |
+          QuoteComma-${{ steps.tag.outputs.tag }}.popclipextz
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: popclip-extension-${{ steps.tag.outputs.tag }}
+        path: QuoteComma-${{ steps.tag.outputs.tag }}.popclipextz
+        retention-days: 30
