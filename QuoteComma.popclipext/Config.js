@@ -11,7 +11,7 @@
  * This extension processes text by:
  * 1. Splitting text by newlines or spaces (configurable)
  * 2. Removing existing quotes if present
- * 3. Wrapping each item with double quotes
+ * 3. Wrapping each item with quotes (single or double, configurable)
  * 4. Adding a comma at the end of each item
  * 5. Excluding the comma from the last item
  *
@@ -37,6 +37,15 @@ module.exports = {
 
   // Extension options
   options: [
+    {
+      identifier: "quoteType",
+      type: "multiple",
+      label: "引号类型",
+      description: "选择使用单引号还是双引号",
+      defaultValue: "double",
+      values: ["double", "single"],
+      valueLabels: ["双引号 (\")", "单引号 (')"]
+    },
     {
       identifier: "splitMode",
       type: "multiple",
@@ -74,9 +83,13 @@ module.exports = {
       const text = input.text;
 
       // Get options with defaults
+      const quoteType = options.quoteType || "double";
       const splitMode = options.splitMode || "newline";
       const quoteHandling = options.quoteHandling || "remove";
       const outputFormat = options.outputFormat || "multiline";
+
+      // Determine which quote character to use
+      const quoteChar = quoteType === "single" ? "'" : "\"";
 
       // Split text based on selected mode
       let items;
@@ -107,8 +120,8 @@ module.exports = {
           cleanItem = cleanItem.replace(/,+$/g, ''); // Remove trailing commas
         }
 
-        // Wrap item with double quotes
-        const quotedItem = `"${cleanItem}"`;
+        // Wrap item with selected quote type
+        const quotedItem = `${quoteChar}${cleanItem}${quoteChar}`;
 
         // Add comma to all items except the last one
         if (index < items.length - 1) {
